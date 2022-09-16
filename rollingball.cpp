@@ -31,7 +31,6 @@ void RollingBall::move(float dt)
 
           gsml::Vector4d h = mMatrix.getColumn(3);
 
-          qDebug() << h.x()<< h.y() << h.z();
           gsml::Vector2d postmp = gsml::Vector2d(h.x(),h.y());
 
 
@@ -45,8 +44,15 @@ void RollingBall::move(float dt)
              //beregne Normalen til ballen
              gsml::Vector3d N = NormalVec(v1,v2,v3);
 
+
+                 gsml::Vector3d Gn = N*(masse*g*cos(angle));
+
+              // gsml::Vector3d gX = N*(masse*g*cos(alpha));
+               //float gY = masse*g*cos(alpha);
+//             float gZ = masse*g;
+//             float N = gX*(-1);
              gsml::Vector3d acceleration=gsml::Vector3d(N.x*g*N.z,N.y*g*N.z,pow(N.z,2)*g-1);
-             //mVelocity = gsml::Vector3d(mVelocity.x * acceleration.x,mVelocity.y * acceleration.y,mVelocity.z * acceleration.z);
+             mVelocity = gsml::Vector3d(mVelocity.x * acceleration.x,mVelocity.y * acceleration.y,mVelocity.z * acceleration.z);
              mPosition.translate(mVelocity.x*dt,mVelocity.y*dt,mVelocity.z*dt);
               mMatrix = mPosition * mScale;
              old_index = i;
@@ -74,13 +80,18 @@ void RollingBall::test()
 gsml::Vector3d RollingBall::NormalVec(gsml::Vector3d v0, gsml::Vector3d v1, gsml::Vector3d v2)
 {
 
-
-
+    gsml::Vector3d norm;
 
     gsml::Vector3d QR = gsml::Vector3d(v1.x-v0.x,v1.y-v0.y,v1.z-v0.z);
     gsml::Vector3d QS = gsml::Vector3d(v2.x-v0.x,v2.y-v0.y,v2.z-v0.z);
 
-    return  QR^QS;
+    //dette er for å beregne vinkelen til planet.
+    float t  = QR*QS;
+    float temp = sqrt(pow(QR.x,2)+pow(QR.y,2)+pow(QR.z,2));
+    float temp2 = sqrt(pow(QS.x,2)+pow(QS.y,2)+pow(QS.z,2));
+     angle = cos(t/(temp*temp2));
+
+    return  gsml::Vector3d(QR.x*QS.x,QR.y*QS.y,QR.z*QS.z);
 
 }
 
