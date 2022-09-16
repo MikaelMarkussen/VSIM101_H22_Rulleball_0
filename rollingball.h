@@ -24,7 +24,7 @@ private:
     float g = -1.81f;
     float angle;
 
-    gsml::Vector3d NormalVec(gsml::Vector3d v0, gsml::Vector3d v1, gsml::Vector3d v2);
+    gsml::Vector3d NormalVec(gsml::Vector3d &v0, gsml::Vector3d &v1, gsml::Vector3d &v2);
     //gsml::Vector3d velocity{1,1,1};
 
 

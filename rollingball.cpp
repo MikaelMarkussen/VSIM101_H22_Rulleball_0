@@ -43,18 +43,14 @@ void RollingBall::move(float dt)
          {
              //beregne Normalen til ballen
              gsml::Vector3d N = NormalVec(v1,v2,v3);
+             //beregne kreftene for kulen
+             gsml::Vector3d Gn = N*(masse*g*cos(angle));
 
 
-                 gsml::Vector3d Gn = N*(masse*g*cos(angle));
-
-              // gsml::Vector3d gX = N*(masse*g*cos(alpha));
-               //float gY = masse*g*cos(alpha);
-//             float gZ = masse*g;
-//             float N = gX*(-1);
              gsml::Vector3d acceleration=gsml::Vector3d(N.x*g*N.z,N.y*g*N.z,pow(N.z,2)*g-1);
              mVelocity = gsml::Vector3d(mVelocity.x * acceleration.x,mVelocity.y * acceleration.y,mVelocity.z * acceleration.z);
              mPosition.translate(mVelocity.x*dt,mVelocity.y*dt,mVelocity.z*dt);
-              mMatrix = mPosition * mScale;
+//              mMatrix = mPosition * mScale;
              old_index = i;
             if(i != old_index)
             {
@@ -77,7 +73,7 @@ void RollingBall::test()
     //mMatrix.print();
 }
 
-gsml::Vector3d RollingBall::NormalVec(gsml::Vector3d v0, gsml::Vector3d v1, gsml::Vector3d v2)
+gsml::Vector3d RollingBall::NormalVec(gsml::Vector3d &v0, gsml::Vector3d &v1, gsml::Vector3d &v2)
 {
 
     gsml::Vector3d norm;
