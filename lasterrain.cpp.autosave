@@ -1,0 +1,26 @@
+#include "lasterrain.h"
+
+LasTerrain::LasTerrain(std::string filePath)
+{
+  readLasFile(filePath);
+}
+/*
+ * 
+ * denne funksjonen vill lese en txt fil som er convertert fra laz.
+ * den gjør også nødvendige utreininger for terrenget
+ * 
+ * */
+void LasTerrain::readLasFile(std::string filePath)
+{
+    std::ifstream las;
+    
+    las.open(filePath,std:: std::ios::binary);
+    
+    if(las.is_open())
+    {
+        while(!las.eof())
+        {
+            std::string  t = las.getline();
+        }
+    }
+}
