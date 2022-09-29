@@ -12,6 +12,7 @@
 #include "trianglesurface.h"
 #include "matrix4x4.h"
 #include "rollingball.h"
+#include "lasterrain.h"
 
 class QOpenGLContext;
 class Shader;
@@ -47,6 +48,7 @@ private:
     bool mInitialized;
     gsml::Vector3d help;
     RollingBall* ball;
+    LasTerrain* las;
 
     Shader *mShaderProgram;
     GLint  mMatrixUniform;

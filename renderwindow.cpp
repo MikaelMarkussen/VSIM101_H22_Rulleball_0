@@ -95,7 +95,8 @@ void RenderWindow::init()
     glEnable(GL_DEPTH_TEST);    //enables depth sorting - must use GL_DEPTH_BUFFER_BIT in glClear
     //    glEnable(GL_CULL_FACE);     //draws only front side of models - usually what you want -
     glClearColor(0.4f, 0.4f, 0.4f,1.0f);    //color used in glClear GL_COLOR_BUFFER_BIT
-    glClearColor(1.0f, 1.0f, 1.0f,1.0f);    //color used in glClear GL_COLOR_BUFFER_BIT
+    glClearColor(0.411f, 0.411f, 0.411f,1.0f);    //color used in glClear GL_COLOR_BUFFER_BIT
+
 
     //Compile shaders:
     //NB: hardcoded path to files! You have to change this if you change directories for the project.
@@ -103,6 +104,7 @@ void RenderWindow::init()
     // (out of the build-folder) and then up into the project folder.
 
     mShaderProgram = new Shader("../VSIM101_H22_Rulleball_0/dagvertex.vert", "../VSIM101_H22_Rulleball_0/dagfragment.frag");
+    las = new LasTerrain("../Desktop/Junderdal.txt");
 
     //********************** Making the object to be drawn **********************
 
@@ -166,7 +168,6 @@ void RenderWindow::render()
     surf2->draw();
     xyz.draw();
     float deltaTime = timer1-timer2;
-
     timer2 = timer1;
 
     ball->move(deltaTime);

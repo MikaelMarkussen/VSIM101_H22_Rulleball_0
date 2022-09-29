@@ -49,8 +49,8 @@ void RollingBall::move(float dt)
 
              gsml::Vector3d acceleration=gsml::Vector3d(N.x*g*N.z,N.y*g*N.z,pow(N.z,2)*g-1);
              mVelocity = gsml::Vector3d(mVelocity.x * acceleration.x,mVelocity.y * acceleration.y,mVelocity.z * acceleration.z);
-             mPosition.translate(mVelocity.x*dt,mVelocity.y*dt,mVelocity.z*dt);
-//              mMatrix = mPosition * mScale;
+             mPosition.translate(mVelocity.x/dt,mVelocity.y/dt,mVelocity.z/dt);
+
              old_index = i;
             if(i != old_index)
             {
