@@ -13,12 +13,14 @@ public:
 
 private:
     void readLasFile(std::string filePath);
+    void test(std::string filePath);
     void triangulate();
 
     float x,y,z;
 
-    float xmin = 0,ymin = 0,xmax = 0,ymax = 0;
-    std::vector<gsml::Vertex> verticies;
+    float xmin,ymin,xmax = 0,ymax = 0;
+    std::vector<gsml::Vertex> tempVerticies;
+    int t = 0;
 
 };
 

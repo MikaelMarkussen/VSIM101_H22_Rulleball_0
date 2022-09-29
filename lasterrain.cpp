@@ -10,15 +10,13 @@ LasTerrain::LasTerrain(std::string filePath)
     int hardwear;
 
     hardwear = t2.hardware_concurrency();
+   qDebug() << hardwear;
 
 
-    if(hardwear < 4)
-    {
-
-    }
-
+    //mMatrix.translate(0.0f,0.0f,0.0f);
 
     readLasFile(filePath);
+    //test(filePath.c_str());
 }
 
 void LasTerrain::init(GLint matrixUniform)
@@ -50,13 +48,7 @@ void LasTerrain::draw()
 {
     glBindVertexArray( mVAO );
     glUniformMatrix4fv( mMatrixUniform, 1, GL_TRUE, mMatrix.constData());
-
- if(drawPointCloud)
- {
-    glDrawArrays(GL_POINT, 0, mVertices.size());
- }else{
     glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
- }
 }
 
 
@@ -65,26 +57,25 @@ void LasTerrain::draw()
  * denne funksjonen vill lese en txt fil som er convertert fra laz.
  * den gjør også nødvendige utreininger for terrenget
  *
- * */
+ */
 void LasTerrain::readLasFile(std::string filePath)
 {
+//qDebug() << mVertices.size();
     std::ifstream las;
-    auto it = mVertices.begin();
     las.open(filePath,std::ios::in);
 
 
     gsml::Vertex v;
-    std::string tempWord;
 
+    std::string tempWord;
     std::string line;
     std::string word;
+
     if(las.is_open())
     {
         while(std::getline(las,line))
         {
-
             std::stringstream temp;
-
             temp << line;
 
             word = "";
@@ -93,9 +84,12 @@ void LasTerrain::readLasFile(std::string filePath)
             float x,y,z;
 
             x = std::stof(word);
+           if(x < xmin)
+               xmin = x;
+
             if(x > xmax)
                 xmax = x;
-
+            word = "";
             temp >> word;
 
             y = std::stof(word);
@@ -103,19 +97,43 @@ void LasTerrain::readLasFile(std::string filePath)
             if(y > ymax)
                 ymax=y;
 
+            if(y < ymin)
+                ymin = y;
+            word = "";
             temp >> word;
 
             z = std::stof(word);
 
 
             v.set_xyz(x,y,z);
+            v.set_rgb(1.f,0.f,0.f);
             mVertices.push_back(v);
+            //tempVerticies.push_back(v);
+        }
+    }
+    las.close();
+    qDebug() << mVertices.size();
+}
+
+void LasTerrain::test(std::string filePath)
+{
+    std::ifstream las;
+    las.open(filePath.c_str(),std::ios::in);
+    std::string te;
 
 
-
+    if(las.is_open()){
+        while(!las.eof()){
+            las >> te;
+            t++;
 
         }
     }
+     t=t/3;
+    qDebug() << t;
+
+
+    las.close();
 }
 
 void LasTerrain::triangulate()

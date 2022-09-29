@@ -104,7 +104,7 @@ void RenderWindow::init()
     // (out of the build-folder) and then up into the project folder.
 
     mShaderProgram = new Shader("../VSIM101_H22_Rulleball_0/dagvertex.vert", "../VSIM101_H22_Rulleball_0/dagfragment.frag");
-    las = new LasTerrain("../Desktop/Junderdal.txt");
+    las = new LasTerrain("../VSIM101_H22_Rulleball_0/Junkerdal.txt");
 
     //********************** Making the object to be drawn **********************
 
@@ -124,6 +124,8 @@ void RenderWindow::init()
     surf2->init(mMatrixUniform);
     ball->init(mMatrixUniform);
     xyz.init(mMatrixUniform);
+    las->init(mMatrixUniform);
+    qDebug() << las->getPos().x << las->getPos().y << las->getPos().z;
 }
 
 ///Called each frame - doing the rendering
@@ -165,13 +167,13 @@ void RenderWindow::render()
     glUniform3f(mLightPositionUniform, mLightPosition.x, mLightPosition.y, mLightPosition.z);
     // actual draw call
     // demo
-    surf2->draw();
+   // surf2->draw();
     xyz.draw();
     float deltaTime = timer1-timer2;
     timer2 = timer1;
 
     ball->move(deltaTime);
-
+    las->draw();
     ball->draw();
     // checkForGLerrors() because that takes a long time
     // and before swapBuffers(), else it will show the vsync time

@@ -15,5 +15,12 @@ VisualObject::~VisualObject()
     glDeleteBuffers( 1, &mVBO );
 }
 
+gsml::Vector3d VisualObject::getPos()
+{
+  gsml::Vector4d t = mMatrix.getColumn(3);
+
+  return gsml::Vector3d(t.x(),t.y(),t.z());
+}
+
 
 
