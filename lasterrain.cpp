@@ -5,16 +5,6 @@
 
 LasTerrain::LasTerrain(std::string filePath)
 {
-    std::thread t1;
-    std::thread t2;
-    int hardwear;
-
-    hardwear = t2.hardware_concurrency();
-   qDebug() << hardwear;
-
-
-    //mMatrix.translate(0.0f,0.0f,0.0f);
-
     readLasFile(filePath);
     //test(filePath.c_str());
 }
@@ -112,7 +102,13 @@ void LasTerrain::readLasFile(std::string filePath)
         }
     }
     las.close();
-    qDebug() << mVertices.size();
+    //qDebug() << mVertices.size();
+    qDebug() << xmin << xmax;
+    int th = t/4;
+//    std::thread t1(triangulate,th);
+//    std::thread t2(triangulate,std::ref(th));
+
+
 }
 
 void LasTerrain::test(std::string filePath)
@@ -126,7 +122,6 @@ void LasTerrain::test(std::string filePath)
         while(!las.eof()){
             las >> te;
             t++;
-
         }
     }
      t=t/3;
@@ -136,7 +131,7 @@ void LasTerrain::test(std::string filePath)
     las.close();
 }
 
-void LasTerrain::triangulate()
+void LasTerrain::triangulate(int t)
 {
 
 }

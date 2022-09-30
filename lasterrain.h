@@ -14,7 +14,7 @@ public:
 private:
     void readLasFile(std::string filePath);
     void test(std::string filePath);
-    void triangulate();
+    void triangulate(int t);
 
     float x,y,z;
 
