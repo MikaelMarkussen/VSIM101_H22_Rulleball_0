@@ -5,9 +5,9 @@ RollingBall::RollingBall(int n) : OctahedronBall (n)
 {
 
     //mVelocity = gsml::Vector3d{1.0f, 1.0f, -0.05f};
-    mPosition.translate(-1.5,-1.5,1);
+    mPosition.translate(-1.5,-1.5,1.5);
     mScale.scale(0.25,0.25,0.25);
-    mMatrix = mPosition;
+    mMatrix = mPosition*mScale;
 
 
 }
@@ -37,10 +37,8 @@ void RollingBall::move(float dt)
           gsml::Vector3d temp = postmp.barycentricCoordinates(v1,v2,v3);
           gsml::Vector4d a = gsml::Vector4d(temp.x,temp.y,temp.z,1);
 
-         //mMatrix.setColumn(3,a);
 
-         if(temp.x <= 1.f && temp.x >= 0.f && temp.y <= 1.f && temp.y >= 0.f)
-         {
+
              //beregne Normalen til ballen
              gsml::Vector3d N = NormalVec(v1,v2,v3);
              //beregne kreftene for kulen
@@ -49,15 +47,15 @@ void RollingBall::move(float dt)
 
              gsml::Vector3d acceleration=gsml::Vector3d(N.x*g*N.z,N.y*g*N.z,pow(N.z,2)*g-1);
              mVelocity = gsml::Vector3d(mVelocity.x * acceleration.x,mVelocity.y * acceleration.y,mVelocity.z * acceleration.z);
-             mPosition.translate(mVelocity.x/dt,mVelocity.y/dt,mVelocity.z/dt);
-
+//           mPosition.translate(mVelocity.x,mVelocity.y,mVelocity.z);
+             mPosition.translate(0,0,(9.81/2)/dt);
              old_index = i;
             if(i != old_index)
             {
 
             }
 
-         }
+
          old_index = i;
 
       }

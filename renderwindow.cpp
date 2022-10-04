@@ -39,9 +39,10 @@ RenderWindow::RenderWindow(const QSurfaceFormat &format, MainWindow *mainWindow)
     //Make the gameloop timer:
     mRenderTimer = new QTimer(this);
     gsml::Vector4d v{1,2,3,4};
-    qDebug() << v[0] <<v[1] << v[3] << v[2];
+   // qDebug() << v[0] <<v[1] << v[3] << v[2];
 
     // Demo
+
     surf2 = new TriangleSurface("../VSIM101_H22_Rulleball_0/totrekanter.txt");
     ball = new RollingBall(3);
     dynamic_cast<RollingBall*>(ball)->setSurface(surf2);
@@ -104,7 +105,7 @@ void RenderWindow::init()
     // (out of the build-folder) and then up into the project folder.
 
     mShaderProgram = new Shader("../VSIM101_H22_Rulleball_0/dagvertex.vert", "../VSIM101_H22_Rulleball_0/dagfragment.frag");
-    las = new LasTerrain("../VSIM101_H22_Rulleball_0/Junkerdal.txt");
+   las = new LasTerrain("../VSIM101_H22_Rulleball_0/Junkerdal.txt");
 
     //********************** Making the object to be drawn **********************
 
@@ -121,11 +122,12 @@ void RenderWindow::init()
     mVMatrixUniform = glGetUniformLocation( mShaderProgram->getProgram(), "vmatrix" );
     mLightPositionUniform = glGetUniformLocation( mShaderProgram->getProgram(), "light_position" );
     glBindVertexArray( 0 );
+
     surf2->init(mMatrixUniform);
     ball->init(mMatrixUniform);
     xyz.init(mMatrixUniform);
     las->init(mMatrixUniform);
-    qDebug() << las->getPos().x << las->getPos().y << las->getPos().z;
+    //qDebug() << las->getPos().x << las->getPos().y << las->getPos().z;
 }
 
 ///Called each frame - doing the rendering
@@ -155,10 +157,10 @@ void RenderWindow::render()
     gsmVMatrix->setToIdentity();
     //gsmPMatrix->frustum(-0.25,0.25,-0.25,0.25,0.1,1.5);
     //gsmPMatrix->frustum(-0.3,0.3,-0.2,0.2,0.1,10);
-    gsmPMatrix->perspective(60, 4.0/3.0, 0.1, 10.0);
+    gsmPMatrix->perspective(60, 4.0/3.0, 0.1, 30.0);
 
     gsml::Vector3d eye{help.x,help.y,help.z};
-    gsml::Vector3d at{0 ,0 , 0};
+    gsml::Vector3d at{ball->getPos().x ,ball->getPos().y , ball->getPos().z};
     gsml::Vector3d up{0,0,1};
     gsmVMatrix->lookAt(eye, at, up);
 
@@ -167,13 +169,16 @@ void RenderWindow::render()
     glUniform3f(mLightPositionUniform, mLightPosition.x, mLightPosition.y, mLightPosition.z);
     // actual draw call
     // demo
-   // surf2->draw();
+    surf2->draw();
     xyz.draw();
     float deltaTime = timer1-timer2;
     timer2 = timer1;
 
     ball->move(deltaTime);
-    las->draw();
+
+    //las->draw();
+
+
     ball->draw();
     // checkForGLerrors() because that takes a long time
     // and before swapBuffers(), else it will show the vsync time
