@@ -81,31 +81,37 @@ struct Vector3d {
     Vector3d barycentricCoordinates(const Vector3d& p1, const Vector3d& p2, const Vector3d& p3)
     {
         Vector3d p12 = p2-p1;
-        Vector3d p13 = p3-p1;
-        // Ikke bruk z-koordinatene. Vi jobber med trekanter i 2D her og projiserer
-        p12.z = 0.0;
-        p13.z = 0.0;
-        Vector3d n = p12^p13;
-        float areal_123 = n.length(); // dobbelt areal
+                Vector3d p13 = p3-p1;
+                // Ikke bruk z-koordinatene. Vi jobber med trekanter i 2D her og projiserer
+                p12.z = 0.0;
+                p13.z = 0.0;
+                Vector3d n = p12^p13;
+                float areal_123 = n.length(); // dobbelt areal
 
-        Vector3d baryc; // til retur
-        // u
-        Vector3d p = p2 - *this;
-        Vector3d q = p3 - *this;
-        n = p^q;
-        baryc.x = n.length()/areal_123;
-        // v
-        p = p3 - *this;
-        q = p1 - *this;
-        n = p^q;
-        baryc.y = n.length()/areal_123;
-        // w
-        p = p1 - *this;
-        q = p2 - *this;
-        n = p^q;
-        baryc.z = n.length()/areal_123;
+                Vector3d baryc; // til retur
+                // u
+                Vector3d p = p2 - *this;
+                Vector3d q = p3 - *this;
+                p.z = 0;
+                q.z = 0;
+                n = p^q;
+                baryc.x = n.length()/areal_123;
+                // v
+                p = p3 - *this;
+                q = p1 - *this;
+                p.z = 0;
+                q.z = 0;
+                n = p^q;
+                baryc.y = n.length()/areal_123;
+                // w
+                p = p1 - *this;
+                q = p2 - *this;
+                p.z = 0;
+                q.z = 0;
+                n = p^q;
+                baryc.z = n.length()/areal_123;
 
-        return baryc;
+                return baryc;
     }
     //Friend functions
     friend std::ostream& operator<<(std::ostream &output, const Vector3d &rhs )
