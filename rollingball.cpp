@@ -30,27 +30,30 @@ void RollingBall::move(float dt)
 
 
           gsml::Vector4d h = mMatrix.getColumn(3);
-
-          gsml::Vector2d postmp = gsml::Vector2d(h.x(),h.y());
+          //qDebug() << h.x() << h.y() << h.z();
+          gsml::Vector3d postmp = gsml::Vector3d(h.x(),h.y(),h.z());
 
 
           gsml::Vector3d temp = postmp.barycentricCoordinates(v1,v2,v3);
-        //  gsml::Vector4d a = gsml::Vector4d(temp.x,temp.y,temp.z,1);
 
-
-
+         //qDebug()  << temp.x << temp.y << temp.z;
+         if(temp.x > 0 && temp.x < 1 && temp.y > 0 && temp.y < 1){
              //beregne Normalen til flaten
              gsml::Vector3d N = NormalVec(v1,v2,v3);
 
-             gsml::Vector3d acceleration=gsml::Vector3d(N.x*g*N.z,N.y*g*N.z,pow(N.z,2)*g-1);
+             gsml::Vector3d acceleration = gsml::Vector3d(N.x*g*N.z,N.y*g*N.z,pow(N.z,2)*g-1);
+
+             qDebug() << N.x << N.y << N.z;
              mVelocity = gsml::Vector3d(acceleration.x,acceleration.y,acceleration.z);
              mPosition.translate(mVelocity.x/dt,mVelocity.y/dt,mVelocity.z/dt);
              //mPosition.translate(0,0,(9.81/2)/dt);
              old_index = i;
+         }
             if(i != old_index)
             {
 
             }
+
 
          old_index = i;
 
@@ -76,12 +79,19 @@ gsml::Vector3d RollingBall::NormalVec(gsml::Vector3d &v0, gsml::Vector3d &v1, gs
     gsml::Vector3d QS = gsml::Vector3d(v2.x-v0.x,v2.y-v0.y,v2.z-v0.z);
 
     //dette er for å beregne vinkelen til planet.
-    float t  = QR*QS;
-    float temp = sqrt(pow(QR.x,2)+pow(QR.y,2)+pow(QR.z,2));
-    float temp2 = sqrt(pow(QS.x,2)+pow(QS.y,2)+pow(QS.z,2));
-     angle = cos(t/(temp*temp2));
 
-    return  gsml::Vector3d(QR.x*QS.x,QR.y*QS.y,QR.z*QS.z);
+//    float normalX =  (QR.y*QS.z) - (QR.z*QS.y);
+//    float normalY = (QR.z*QS.x) - (QR.x*QS.z);
+//    float normalZ = (QR.x*QS.y) - (QR.y*QS.x);
+
+     norm = QR.cross(QS);
+
+    //    float t  = QR*QS;
+//    float temp = sqrt(pow(QR.x,2)+pow(QR.y,2)+pow(QR.z,2));
+//    float temp2 = sqrt(pow(QS.x,2)+pow(QS.y,2)+pow(QS.z,2));
+//     angle = cos(t/(temp*temp2));
+
+    return norm; //gsml::Vector3d(normalX,normalY,normalZ);
 
 }
 
