@@ -157,7 +157,7 @@ void RenderWindow::render()
     gsmVMatrix->setToIdentity();
     //gsmPMatrix->frustum(-0.25,0.25,-0.25,0.25,0.1,1.5);
     //gsmPMatrix->frustum(-0.3,0.3,-0.2,0.2,0.1,10);
-    gsmPMatrix->perspective(60, 4.0/3.0, 0.1, 30.0);
+    gsmPMatrix->perspective(60, 16.0/9.0, 0.1, 30.0);
 
     gsml::Vector3d eye{help.x,help.y,help.z};
     gsml::Vector3d at{ball->getPos().x ,ball->getPos().y , ball->getPos().z};

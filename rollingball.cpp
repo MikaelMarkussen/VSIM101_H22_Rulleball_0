@@ -40,13 +40,12 @@ void RollingBall::move(float dt)
          if(temp.x > 0 && temp.x < 1 && temp.y > 0 && temp.y < 1){
              //beregne Normalen til flaten
              gsml::Vector3d N = NormalVec(v1,v2,v3);
-
-             gsml::Vector3d acceleration = gsml::Vector3d(N.x*g*N.z,N.y*g*N.z,pow(N.z,2)*g-1);
+             N.normalize();
+             gsml::Vector3d acceleration = gsml::Vector3d(N.x*N.z,N.y*N.z,(pow(N.z,2)-1))*g;
 
              qDebug() << N.x << N.y << N.z;
-             mVelocity = gsml::Vector3d(acceleration.x,acceleration.y,acceleration.z);
+             mVelocity = gsml::Vector3d(acceleration.x,acceleration.y,-acceleration.z);
              mPosition.translate(mVelocity.x/dt,mVelocity.y/dt,mVelocity.z/dt);
-             //mPosition.translate(0,0,(9.81/2)/dt);
              old_index = i;
          }
             if(i != old_index)
@@ -79,10 +78,6 @@ gsml::Vector3d RollingBall::NormalVec(gsml::Vector3d &v0, gsml::Vector3d &v1, gs
     gsml::Vector3d QS = gsml::Vector3d(v2.x-v0.x,v2.y-v0.y,v2.z-v0.z);
 
     //dette er for å beregne vinkelen til planet.
-
-//    float normalX =  (QR.y*QS.z) - (QR.z*QS.y);
-//    float normalY = (QR.z*QS.x) - (QR.x*QS.z);
-//    float normalZ = (QR.x*QS.y) - (QR.y*QS.x);
 
      norm = QR.cross(QS);
 

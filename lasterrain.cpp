@@ -132,7 +132,7 @@ void LasTerrain::readLasFile(std::string filePath)
 //    qDebug() << xmin << xmax;
 //    qDebug() << ymin << ymax;
 //    qDebug() << zmin << zmax;
-   // triangulateGrids(1);
+    triangulateGrids(1);
 
    // gridX = gridX/100;
     //qDebug() << xrange<< yrange;

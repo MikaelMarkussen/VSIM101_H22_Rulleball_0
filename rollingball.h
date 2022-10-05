@@ -21,7 +21,7 @@ protected:
 private:
     gsml::Vector3d old_normal{0.0, 0.0, 1.0};
     int old_index{0};
-    float g = -1.81f;
+    float g = -9.81f;
     float angle;
 
     gsml::Vector3d NormalVec(gsml::Vector3d &v0, gsml::Vector3d &v1, gsml::Vector3d &v2);
