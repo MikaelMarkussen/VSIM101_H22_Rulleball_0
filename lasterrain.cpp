@@ -132,7 +132,7 @@ void LasTerrain::readLasFile(std::string filePath)
 //    qDebug() << xmin << xmax;
 //    qDebug() << ymin << ymax;
 //    qDebug() << zmin << zmax;
-    triangulateGrids(1);
+   // triangulateGrids(1);
 
    // gridX = gridX/100;
     //qDebug() << xrange<< yrange;
@@ -151,7 +151,7 @@ void LasTerrain::triangulateGrids(int t)
        tempY = tempVertices[i].getY();
 
 
-       grid[tempX/10][tempY/10].z= tempVertices[i].z();
+       grid[tempX/10][tempY/10].z= tempVertices[i].getZ();
 
 
 

@@ -105,7 +105,7 @@ void RenderWindow::init()
     // (out of the build-folder) and then up into the project folder.
 
     mShaderProgram = new Shader("../VSIM101_H22_Rulleball_0/dagvertex.vert", "../VSIM101_H22_Rulleball_0/dagfragment.frag");
-   las = new LasTerrain("../VSIM101_H22_Rulleball_0/Junkerdal.txt");
+   //las = new LasTerrain("../VSIM101_H22_Rulleball_0/Junkerdal.txt");
 
     //********************** Making the object to be drawn **********************
 
@@ -126,7 +126,7 @@ void RenderWindow::init()
     surf2->init(mMatrixUniform);
     ball->init(mMatrixUniform);
     xyz.init(mMatrixUniform);
-    las->init(mMatrixUniform);
+    //las->init(mMatrixUniform);
     //qDebug() << las->getPos().x << las->getPos().y << las->getPos().z;
 }
 
@@ -173,9 +173,10 @@ void RenderWindow::render()
     xyz.draw();
     float deltaTime = timer1-timer2;
     timer2 = timer1;
-
+    if(rollingStart)
+    {
     ball->move(deltaTime);
-
+    }
     //las->draw();
 
 

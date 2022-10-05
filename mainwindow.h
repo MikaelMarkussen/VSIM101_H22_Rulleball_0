@@ -19,7 +19,8 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
+
+    void on_rollingStart_toggled(bool checked);
 
 private:
     void init();

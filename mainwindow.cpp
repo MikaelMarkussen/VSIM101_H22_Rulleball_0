@@ -54,6 +54,7 @@ void MainWindow::init()
         delete mRenderWindow;
         return;
     }
+            //ui->pushButton->setText("Start Rolling");
 
     //The OpenGL RenderWindow got made, so continuing the setup:
     //We put the RenderWindow inside a QWidget so we can put in into a
@@ -67,10 +68,18 @@ void MainWindow::init()
     mRenderWindowContainer->setFocus();
 }
 
-//Example of a slot called from the button on the top of the program.
-void MainWindow::on_pushButton_clicked()
+
+void MainWindow::on_rollingStart_toggled(bool checked)
 {
-    mRenderWindow->rollingStart = true;
-    qDebug() << "Button clicked";
+    if(checked)
+    {
+        ui->rollingStart->setText("Stop Rolling");
+        mRenderWindow->rollingStart = true;
+
+    }else
+    {
+        mRenderWindow->rollingStart = false;
+        ui->rollingStart->setText("Start Rolling");
+    }
 }
 

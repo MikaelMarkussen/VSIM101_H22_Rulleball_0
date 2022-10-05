@@ -35,26 +35,22 @@ void RollingBall::move(float dt)
 
 
           gsml::Vector3d temp = postmp.barycentricCoordinates(v1,v2,v3);
-          gsml::Vector4d a = gsml::Vector4d(temp.x,temp.y,temp.z,1);
+        //  gsml::Vector4d a = gsml::Vector4d(temp.x,temp.y,temp.z,1);
 
 
 
-             //beregne Normalen til ballen
+             //beregne Normalen til flaten
              gsml::Vector3d N = NormalVec(v1,v2,v3);
-             //beregne kreftene for kulen
-             gsml::Vector3d Gn = N*(masse*g*cos(angle));
-
 
              gsml::Vector3d acceleration=gsml::Vector3d(N.x*g*N.z,N.y*g*N.z,pow(N.z,2)*g-1);
-             mVelocity = gsml::Vector3d(mVelocity.x * acceleration.x,mVelocity.y * acceleration.y,mVelocity.z * acceleration.z);
-//           mPosition.translate(mVelocity.x,mVelocity.y,mVelocity.z);
-             mPosition.translate(0,0,(9.81/2)/dt);
+             mVelocity = gsml::Vector3d(acceleration.x,acceleration.y,acceleration.z);
+             mPosition.translate(mVelocity.x/dt,mVelocity.y/dt,mVelocity.z/dt);
+             //mPosition.translate(0,0,(9.81/2)/dt);
              old_index = i;
             if(i != old_index)
             {
 
             }
-
 
          old_index = i;
 
