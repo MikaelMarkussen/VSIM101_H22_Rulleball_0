@@ -105,7 +105,7 @@ void RenderWindow::init()
     // (out of the build-folder) and then up into the project folder.
 
     mShaderProgram = new Shader("../VSIM101_H22_Rulleball_0/dagvertex.vert", "../VSIM101_H22_Rulleball_0/dagfragment.frag");
-   //las = new LasTerrain("../VSIM101_H22_Rulleball_0/Junkerdal.txt");
+
 
     //********************** Making the object to be drawn **********************
 
@@ -126,8 +126,23 @@ void RenderWindow::init()
     surf2->init(mMatrixUniform);
     ball->init(mMatrixUniform);
     xyz.init(mMatrixUniform);
-    //las->init(mMatrixUniform);
-    //qDebug() << las->getPos().x << las->getPos().y << las->getPos().z;
+
+}
+
+void RenderWindow::lasRender()
+{
+    las = new LasTerrain("../VSIM101_H22_Rulleball_0/Junkerdal.txt");
+    las->init(mMatrixUniform);
+    lasDraw = true;
+}
+
+void RenderWindow::drawPoints(int t)
+{
+    if(t ==1){
+        las->drawPointCloud = true;
+    }else{
+    las->drawPointCloud = false;
+    }
 }
 
 ///Called each frame - doing the rendering
@@ -169,7 +184,7 @@ void RenderWindow::render()
     glUniform3f(mLightPositionUniform, mLightPosition.x, mLightPosition.y, mLightPosition.z);
     // actual draw call
     // demo
-    surf2->draw();
+   // surf2->draw();
     xyz.draw();
     float deltaTime = timer1-timer2;
     timer2 = timer1;
@@ -177,7 +192,8 @@ void RenderWindow::render()
     {
     ball->move(deltaTime);
     }
-    //las->draw();
+    if(lasDraw)
+        las->draw();
 
 
     ball->draw();
@@ -300,8 +316,6 @@ void RenderWindow::keyPressEvent(QKeyEvent *event)
         help.z += 0.1;
     if (event->key() == Qt::Key_E)
         help.z -= 0.1;
-    //qDebug() << help.x << help.y << help.z;
 
-    if(event->key() == Qt::Key_J)
-        ball->test();
+
 }

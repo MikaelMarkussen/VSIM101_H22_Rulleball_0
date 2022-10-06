@@ -34,6 +34,10 @@ public:
     void exposeEvent(QExposeEvent *) override;
 
     bool rollingStart = false;
+    void lasRender();
+    bool lasDraw = false;
+
+    void drawPoints(int t);
 //    void error(const QString &msg);
 
 private slots:
@@ -41,6 +45,7 @@ private slots:
 
 private:
     void init();
+
     XYZ xyz;
     TriangleSurface surf;
     TriangleSurface* surf2;
@@ -76,6 +81,10 @@ private:
     void startOpenGLDebugger();
 
     float timer1 = 0,timer2 = 0;
+
+
+
+
 
 protected:
     //The QWindow that we inherit from has these functions to capture

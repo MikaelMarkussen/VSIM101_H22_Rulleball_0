@@ -40,7 +40,11 @@ void LasTerrain::draw()
 {
     glBindVertexArray( mVAO );
     glUniformMatrix4fv( mMatrixUniform, 1, GL_TRUE, mMatrix.constData());
-    glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
+    if(!drawPointCloud){
+        glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
+    }else{
+    glDrawArrays(GL_POINTS, 0, mVertices.size());
+    }
 }
 
 
@@ -132,7 +136,7 @@ void LasTerrain::readLasFile(std::string filePath)
 //    qDebug() << xmin << xmax;
 //    qDebug() << ymin << ymax;
 //    qDebug() << zmin << zmax;
-    triangulateGrids(1);
+   // triangulateGrids(1);
 
    // gridX = gridX/100;
     //qDebug() << xrange<< yrange;
@@ -154,38 +158,6 @@ void LasTerrain::triangulateGrids(int t)
        grid[tempX/10][tempY/10].z= tempVertices[i].getZ();
 
 
-
-
-//      for(int x = 0;x <= 116;x++)
-//      {
-//          for(int y = 0;y <= 66;y++)
-//          {
-//             testY = ymin+(10*y);
-//             testX = xmin+(10*x);
-//             if(tempY <= testY && tempX <= testX)
-//             {
-//                 grid[x][y].z=mVertices[i].getZ();
-//             }
-//          }
-
-    //  }
-
-
-
-
-//      for(int x = xmin; x < xmax; x+=10)
-//      {
-//          for(int y = ymin; y < ymax; y+=10)
-//          {
-//          if(tempX <= x && tempY <= y)
-//          {
-//              grid[y][]
-//          }
-//        }
-//      }
-
-      //qDebug() << tempX << tempY;
-      //grid[tempX][tempY].z= tempVertices[i].getZ();
 
   }
   int m = 116;
@@ -219,5 +191,6 @@ void LasTerrain::triangulateGrids(int t)
               mVertices.push_back(gsml::Vertex(x2,y2,z2,0,0,1));
           }
       }
+      qDebug() << mVertices.size();
 }
 

@@ -83,3 +83,26 @@ void MainWindow::on_rollingStart_toggled(bool checked)
     }
 }
 
+
+
+
+
+void MainWindow::on_terrainRender_clicked()
+{
+    ui->terrainRender->setText("Rendering....");
+    mRenderWindow->lasRender();
+    if(mRenderWindow->lasDraw){
+        ui->terrainRender->setText("Terrain has been renderd");
+    }
+}
+
+
+void MainWindow::on_pointsDraw_clicked(bool checked)
+{
+    if(checked){
+        mRenderWindow->drawPoints(1);
+    }else{
+        mRenderWindow->drawPoints(0);
+    }
+}
+

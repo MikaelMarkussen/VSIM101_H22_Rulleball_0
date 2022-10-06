@@ -13,7 +13,6 @@ public:
     void draw() override;
     void move(float dt) override;
     void setSurface(VisualObject* surface) { triangle_surface = surface; }
-    void test();
     float masse = 0.500f;
 
 protected:
@@ -21,8 +20,14 @@ protected:
 private:
     gsml::Vector3d old_normal{0.0, 0.0, 1.0};
     int old_index{0};
-    float g = -9.81f;
+    float g = -1.81f;
     float angle;
+    float radius = 1.05f;
+    gsml::Vector3d mAcceleration;
+    gsml::Vector3d mVelocity;
+    bool collided = 0;
+    gsml::Vector3d N;
+    int index{0};
 
     gsml::Vector3d NormalVec(gsml::Vector3d &v0, gsml::Vector3d &v1, gsml::Vector3d &v2);
     //gsml::Vector3d velocity{1,1,1};

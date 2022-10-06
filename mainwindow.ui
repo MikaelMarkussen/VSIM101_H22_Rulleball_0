@@ -16,6 +16,23 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
+     <widget class="QPushButton" name="pointsDraw">
+      <property name="text">
+       <string>Draw points</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="terrainRender">
+      <property name="text">
+       <string>Render terrain</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QPushButton" name="rollingStart">
       <property name="text">
        <string>Start Rolling</string>
@@ -36,7 +53,7 @@
      <x>0</x>
      <y>0</y>
      <width>1047</width>
-     <height>17</height>
+     <height>29</height>
     </rect>
    </property>
   </widget>
