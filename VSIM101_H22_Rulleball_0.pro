@@ -1,7 +1,7 @@
 QT          += core gui widgets opengl
 
 TEMPLATE    = app
-CONFIG      += c++11
+CONFIG      += c++20
 INCLUDEPATH += .\Matrix4x4\
 TARGET      = Rulleball
 
